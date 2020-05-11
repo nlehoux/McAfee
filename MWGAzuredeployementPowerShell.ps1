@@ -154,11 +154,9 @@ echo "Creating the managed disk"
 
 
 $storageAccountId = (Get-AzStorageAccount | where {$_.StorageAccountName -eq $StorageAcountName} | select id).id
-# '/subscriptions/27470de3-20a7-4913-b43d-3b7468b25992/resourceGroups/mwgnativegroup/providers/Microsoft.Storage/storageAccounts/azmwgimgstorage'
 $StorageKey = (Get-AzStorageAccountKey -StorageAccountName $StorageAcountName -ResourceGroupName $ResourceGroupName | where {$_.KeyName -eq 'key1'}).Value
 $StorageContext = New-AzStorageContext -StorageAccountName $StorageAcountName -StorageAccountKey $StorageKey
 $SourceImageUri = (Get-AzStorageBlob -Container "mwgimg" -Blob 'mwg*'-Context $StorageContext).ICloudBlob.Uri.AbsoluteUri
-#'https://azmwgimgstorage.blob.core.windows.net/mwgimg/mwg-8.2.0-29996.vhd'
 
 
 $diskConfig = New-AzDiskConfig `
